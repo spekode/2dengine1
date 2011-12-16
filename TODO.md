@@ -1,4 +1,4 @@
-Doable:
+Doable
 -------
 [ ] Collision detection for entities and tiles
 
@@ -10,13 +10,13 @@ Doable:
 
 [ ] Write a bouncing-ball entity so player has someone to play with
 
-Maybe:
+Maybe
 ------
 [ ] Switch from colorkey to alpha images (alpha might be [faster][blitcomparison])
 
 [blitcomparison]: http://kevinlocke.name/inquiry/sdlblitspeed/sdlblitspeed.php
 
-Future stuff:
+Future stuff
 -------------
 [ ] Uniform file I/O for resources
 
