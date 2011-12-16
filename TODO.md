@@ -1,4 +1,4 @@
-Doable
+Doable NOW
 -------
 [ ] Collision detection for entities and tiles
 
@@ -9,6 +9,9 @@ Doable
 [ ] Define constants and stop using hardcoded values
 
 [ ] Write a bouncing-ball entity so player has someone to play with
+
+Doable SOON
+-----------
 
 Maybe
 ------
