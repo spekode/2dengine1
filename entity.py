@@ -53,11 +53,13 @@ class Entity(object):
 	def draw(self, frameDT, surface, x, y):
 		if self.visible and self.sprite:
 			self.sprite.draw(frameDT, surface, x, y)
+
 	def move(self, frameDT):
 		frameDTfract = frameDT/1000
 		# Apply acceleration
-		self.vel_x += (self.accel_x * frameDTfract)
+		self.vel_x += (self.accel_x * frameDTfract) + (self.constaccel_x * frameDTfract)
 		self.vel_y += (self.accel_y * frameDTfract) + (self.constaccel_y * frameDTfract)
+
 		# Apply resistance on X axis
 		if self.vel_x > 0:
 			self.vel_x -= self.resistance_x * frameDTfract
@@ -82,13 +84,11 @@ class Entity(object):
 			elif self.vel_y < -self.vel_y_max: self.vel_y = -self.vel_y_max		# Update position
 		self.pos_x += self.vel_x * frameDTfract
 		self.pos_y += self.vel_y * frameDTfract
-		# Testing
-		if self.pos_y >= 1000:
-			self.pos_y = 1000
-			self.vel_y = 0
-		elif self.pos_y <= 0:
-			self.pos_y = 0
-		# Keep all entities on the playing field
+
+		# Contain entity within an area (default is playfield)
+		self.respectBoundry()
+
+	def respectBoundry(self):
 		if self.pos_y < 0: self.pos_y = 0
 		elif self.pos_y > 4096: self.pos_y = 4096
 		if self.pos_x < 0: self.pos_x = 0

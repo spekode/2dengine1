@@ -57,12 +57,6 @@ class Scene(object):
 		layer = Layer(mapdata)
 		try:
 			lines = open("./levels/" + level + "/map" + str(layernum) + ".info").read().splitlines()
-			print "###########3333##############"
-			print "###########3333##############"
-			print "###########3333##############"
-			print "###########3333##############"
-			print "###########3333##############"
-			print "sfacts", int(lines[0].strip()), int(lines[1].strip())
 			layer.setSfactor(int(lines[0].strip()), int(lines[1].strip()))
 		except:
 			pass
