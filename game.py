@@ -4,17 +4,20 @@ from player import Player
 from scene import Scene
 import sys
 
+def keyUnbound(key, state):
+	print "Unbound key:", key, "State:", state
+
 class Game(object):
 	controlBinds = {
-		'left':None,
-		'right':None,
-		'up':None,
-		'down':None,
-		'enter':None,
-		'pgdn':None,
-		'pgup':None,
-		'home':None,
-		'end':None
+		'left':keyUnbound,
+		'right':keyUnbound,
+		'up':keyUnbound,
+		'down':keyUnbound,
+		'enter':keyUnbound,
+		'pgdn':keyUnbound,
+		'pgup':keyUnbound,
+		'home':keyUnbound,
+		'end':keyUnbound
 	}
 
 	def __init__(self):
@@ -33,7 +36,7 @@ class Game(object):
 		self.controlBinds['right'] = player1.right
 		self.controlBinds['up'] = player1.up
 		self.controlBinds['down'] = player1.down
-		self.controlBinds['enter'] = sys.exit
+		#self.controlBinds['enter'] =
 		#self.controlBinds['pgdn'] = self.camera.scrollDown
 		#self.controlBinds['pgup'] = self.camera.scrollUp
 
@@ -50,10 +53,9 @@ class Game(object):
 	def update(self, kdown, kup, other):
 		for key in self.controlBinds:
 			if key in kdown:
-				self.controlBinds[key](True)
-				print key
+				self.controlBinds[key](key, True)
 			if key in kup:
-				self.controlBinds[key](False)
+				self.controlBinds[key](key, False)
 		
 	def run(self, frameDT):
 		# Run a frame

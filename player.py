@@ -10,29 +10,25 @@ class Player(Entity):
 		self.accel_y = 0.0
 
 		self.midjump = False
-	def left(self, state):
-		print 'left state: ', state
+	def left(self, key, state):
 		if state == True:
 			self.accel(-800, 0)
 			self.impulse(-200, 0)
 		else:
 			self.accel(800, 0)
 			self.impulse(200, 0)
-	def right(self, state):
-		print 'right state: ', state
+	def right(self, key, state):
 		if state == True:
 			self.accel(800, 0)
 			self.impulse(200, 0)
 		else:
 			self.accel(-800, 0)
 			self.impulse(-200, 0)
-	def up(self, state):
-		print 'up state: ', state
+	def up(self, key, state):
 		if state == True and self.midjump == False:
 			#self.midjump = True
 			self.impulse(0, -250)
-	def down(self, state):
-		print 'down state: ', state
+	def down(self, key, state):
 		if state == True:
 			self.resistance_x -= 600
 		else: self.resistance_x += 600

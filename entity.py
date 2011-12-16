@@ -23,6 +23,8 @@ class Entity(object):
 		self.resistance_x = 550.0
 		self.resistance_y = 10.0
 		self.rotation = 0.0
+		
+		self.colRect = None
 
 
 		self.health = 0
