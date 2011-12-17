@@ -29,3 +29,14 @@ class TextConsole(object):
 				self.linesurfs[i][1] = False
 			textpos = self.linesurfs[i][0].get_rect().move(0, 16 * i)
 			surface.blit(self.linesurfs[i][0], textpos)
+	
+	def setChars(self, chars, row, col):
+		x = col
+		self.linesurfs[row][1] = True # make surface dirty
+		for char in chars:
+			self.buffer[row][x] = char
+			x += 1
+	def setColor(self, color, row, col, len=1):
+		self.linesurfs[row][1] = True
+		for i in range(col, col+len):
+			self.bufferColors[row][i] = color

@@ -56,6 +56,10 @@ class Game(object):
 		self.camera.resistance_y = 400.0
 		self.camera.setOwner(player1)
 
+		# Write "DOGGY" to the terminal layer, in red
+		self.console.setChars("DOGGY", 20, 10)
+		self.console.setColor((255,0,0), 20, 10, 5)
+
 	def update(self, kdown, kup, other):
 		for key in self.controlBinds:
 			if key in kdown:
