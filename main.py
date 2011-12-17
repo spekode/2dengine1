@@ -20,7 +20,7 @@ def engineInit():
 	keyInput = KeyboardInput()
 	game = Game()
 
-	levelInit('intro')
+	levelInit('terminal')
 
 def levelInit(game_level):
 	pass

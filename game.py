@@ -31,7 +31,7 @@ class Game(object):
 		self.scene = Scene()
 		self.camera = Camera(self.display, self.scene, self.console)
 		
-		self.level = 'intro'
+		self.level = 'terminal'
 
 		player1 = Player()
 		player1.setPos(100, 100)
