@@ -8,6 +8,8 @@ class Player(Entity):
 		self.setSpriteList(sprite.spriteLoad('sprites/retard.png'))
 		self.setSprite('retard_idle')
 		#self.constaccel_y = 600.0
+		self.vel_x_max = 100.0
+		self.vel_y_max = 100.0
 		self.accel_y = 0.0
 		self.character = TextCharacter()
 		self.character.setChar('@')
@@ -15,25 +17,25 @@ class Player(Entity):
 		self.midjump = False
 	def left(self, key, state):
 		if state == True:
-			self.accel(-800, 0)
-			self.impulse(-200, 0)
+			self.accel(-10, 0)
+			self.impulse(-10, 0)
 		else:
-			self.accel(800, 0)
-			self.impulse(200, 0)
+			self.accel(10, 0)
+			self.impulse(10, 0)
 	def right(self, key, state):
 		if state == True:
-			self.accel(800, 0)
-			self.impulse(200, 0)
+			self.accel(10, 0)
+			self.impulse(10, 0)
 		else:
-			self.accel(-800, 0)
-			self.impulse(-200, 0)
+			self.accel(-10, 0)
+			self.impulse(-10, 0)
 	def up(self, key, state):
 		if state == True:
-			self.accel(0, -800)
-			self.impulse(0, -250)
+			self.accel(0, -10)
+			self.impulse(0, -10)
 		else:
-			self.accel(0, 800)
-			self.impulse(0, 250)
+			self.accel(0, 10)
+			self.impulse(0, 10)
 						
 	def down(self, key, state):
 		# POWER SLIDE!!!
@@ -42,12 +44,15 @@ class Player(Entity):
 		#else: self.resistance_x += 600
 
 		if state == True:
-			self.accel(0, 800)
-			self.impulse(0, 200)
+			self.accel(0, 10)
+			self.impulse(0, 10)
 		else:
-			self.accel(0, -800)
-			self.impulse(0, -200)
+			self.accel(0, -10)
+			self.impulse(0, -10)
 
 	def draw(self, frameDT, surface, x, y):
 		if self.visible:
-			self.character.draw(surface, frameDT, x, y)
+			cx = 10 * int(x)
+			cy = 16 * int(y)
+			print x, y, cx, cy
+			self.character.draw(surface, frameDT, cx, cy)

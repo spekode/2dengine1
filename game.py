@@ -34,7 +34,7 @@ class Game(object):
 		self.level = 'terminal'
 
 		player1 = Player()
-		player1.setPos(100, 100)
+		player1.setPos(1, 1)
 		player1.setVisible(True)
 
 		# Default controls
@@ -56,9 +56,9 @@ class Game(object):
 		self.camera.resistance_y = 400.0
 		self.camera.setOwner(player1)
 
-		# Write "DOGGY" to the terminal layer, in red
-		self.console.setChars("DOGGY", 20, 10)
-		self.console.setColor((255,0,0), 20, 10, 5)
+		# Testing, testing..
+		self.console.setChars("@", 21, 11)
+		self.console.setColor((255,0,0), 21, 11)
 
 	def update(self, kdown, kup, other):
 		for key in self.controlBinds:

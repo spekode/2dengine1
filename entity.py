@@ -20,8 +20,8 @@ class Entity(object):
 		self.vel_y = 0.0
 		self.constaccel_x = 0.0
 		self.constaccel_y = 0.0
-		self.resistance_x = 550.0
-		self.resistance_y = 550.0
+		self.resistance_x = 10.0
+		self.resistance_y = 10.0
 		self.rotation = 0.0
 		
 		self.colRect = None
