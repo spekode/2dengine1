@@ -20,6 +20,7 @@ class TextConsole(object):
 		linesurf.set_colorkey(0xDDEEFF)
 		for i, col in enumerate(self.buffer[rowindex]):
 			colsurf = self.font.render(col, 0, self.bufferColors[rowindex][i], (0xDD,0xEE,0xFF))
+			colsurf.set_colorkey(0xDDEEFF)
 			linesurf.blit(colsurf, ((i*10), 0))
 		return linesurf
 
