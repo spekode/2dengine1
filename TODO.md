@@ -22,5 +22,3 @@ Maybe
 Future stuff
 -------------
 [ ] Uniform file I/O for resources
-
-
