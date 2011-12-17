@@ -6,7 +6,7 @@ class TextConsole(object):
 	def __init__(self):
 		self.rows = 30
 		self.cols = 64
-		self.buffer = [[random.choice(['X', 'O', ' ']) for x in range(0, self.cols)] for i in range(0, self.rows)]
+		self.buffer = [[' ' for x in range(0, self.cols)] for i in range(0, self.rows)]
 		self.bufferColors = [[(255,255,255) for x in range(0, self.cols)] for i in range(0, self.rows)]
 		self.bufferColors[20][63] = (255,0,0)
 		self.font = pygame.font.Font('fonts/mode7.ttf', 16)
