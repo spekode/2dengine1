@@ -17,7 +17,11 @@ class Game(object):
 		'pgdn':keyUnbound,
 		'pgup':keyUnbound,
 		'home':keyUnbound,
-		'end':keyUnbound
+		'end':keyUnbound,
+		'w':keyUnbound,
+		'a':keyUnbound,
+		's':keyUnbound,
+		'd':keyUnbound
 	}
 
 	def __init__(self):
@@ -32,10 +36,10 @@ class Game(object):
 		player1.setVisible(True)
 
 		# Default controls
-		self.controlBinds['left'] = player1.left
-		self.controlBinds['right'] = player1.right
-		self.controlBinds['up'] = player1.up
-		self.controlBinds['down'] = player1.down
+		self.controlBinds['a'] = player1.left
+		self.controlBinds['d'] = player1.right
+		self.controlBinds['w'] = player1.up
+		self.controlBinds['s'] = player1.down
 		#self.controlBinds['enter'] =
 		#self.controlBinds['pgdn'] = self.camera.scrollDown
 		#self.controlBinds['pgup'] = self.camera.scrollUp

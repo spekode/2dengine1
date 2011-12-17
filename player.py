@@ -6,7 +6,7 @@ class Player(Entity):
 		Entity.__init__(self, self, 0)
 		self.setSpriteList(sprite.spriteLoad('sprites/retard.png'))
 		self.setSprite('retard_idle')
-		self.constaccel_y = 600.0
+		#self.constaccel_y = 600.0
 		self.accel_y = 0.0
 
 		self.midjump = False
@@ -25,11 +25,22 @@ class Player(Entity):
 			self.accel(-800, 0)
 			self.impulse(-200, 0)
 	def up(self, key, state):
-		if state == True and self.midjump == False:
-			#self.midjump = True
-			self.impulse(0, -250)
-	def down(self, key, state):
 		if state == True:
-			self.resistance_x -= 600
-		else: self.resistance_x += 600
-		#self.impulse(0, 100)
+			self.accel(0, -800)
+			self.impulse(0, -250)
+		else:
+			self.accel(0, 800)
+			self.impulse(0, 250)
+						
+	def down(self, key, state):
+		# POWER SLIDE!!!
+		#if state == True:
+		#	self.resistance_x -= 600
+		#else: self.resistance_x += 600
+
+		if state == True:
+			self.accel(0, 800)
+			self.impulse(0, 200)
+		else:
+			self.accel(0, -800)
+			self.impulse(0, -200)

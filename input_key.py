@@ -8,7 +8,11 @@ keymap = {
 	K_LEFT: 'left',
 	K_RIGHT: 'right',
 	K_PAGEDOWN: 'pgdn',
-	K_PAGEUP: 'pgup'
+	K_PAGEUP: 'pgup',
+	K_w: 'w',
+	K_a: 'a',
+	K_s: 's',
+	K_d: 'd'
 }
 
 class KeyboardInput(object):
