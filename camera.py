@@ -7,12 +7,13 @@ CHASECAM_VERT_MARGIN = 75
 CHASECAM_IMPULSE = 25
 
 class Camera(Entity):
-	def __init__(self, display, scene=None, x=0, y=0, owner=None):
+	def __init__(self, display, scene=None, console=None, x=0, y=0, owner=None):
 		Entity.__init__(self, owner, 0)
 		self.display = display
 		self.surface = display.getSurface()
 		self.scene = scene
-
+		self.console = console
+		
 	def respectBoundry(self):
 		if self.pos_x < 0: self.pos_x = 0
 		elif self.pos_x > 4096 - CAMERA_WIDTH: self.pos_x = 4096 - CAMERA_WIDTH
@@ -60,4 +61,5 @@ class Camera(Entity):
 		self.display.clear()
 		for layer in reversed(self.scene.layers):
 			self.drawLayer(layer, frameDT)
+		self.console.draw(self.surface, frameDT, 0, 0)
 		self.display.update()

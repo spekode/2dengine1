@@ -3,6 +3,7 @@ from camera import Camera
 from player import Player
 from scene import Scene
 import sys
+from text import TextConsole
 
 def keyUnbound(key, state):
 	print "Unbound key:", key, "State:", state
@@ -25,9 +26,10 @@ class Game(object):
 	}
 
 	def __init__(self):
+		self.console = TextConsole()
 		self.display = Display()
 		self.scene = Scene()
-		self.camera = Camera(self.display, self.scene)
+		self.camera = Camera(self.display, self.scene, self.console)
 		
 		self.level = 'intro'
 
