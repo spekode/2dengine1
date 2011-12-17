@@ -2,6 +2,25 @@ import pygame
 from pygame.locals import *
 import random
 
+class TextCharacter(object):
+	def __init__(self):
+		self.char = ' '
+		self.color = (255, 255, 255)
+		self.font = pygame.font.Font('fonts/mode7.ttf', 16)
+		self.surf = None
+		self.dirty = True
+	def setChar(self, char):
+		self.dirty = True
+		self.char = char
+	def setColor(self, color):
+		self.dirty = True
+		self.color = color
+	def draw(self, surface, frameDT, x, y):
+		if self.dirty:
+			self.surf = self.font.render(self.char, 0, self.color, (0xDD, 0xEE, 0xFF)).convert()
+			self.surf.set_colorkey((0xDD, 0xEE, 0xFF), pygame.RLEACCEL)
+		surface.blit(self.surf, (x,y))
+
 class TextConsole(object):
 	def __init__(self):
 		self.rows = 30
@@ -38,6 +57,7 @@ class TextConsole(object):
 		for char in chars:
 			self.buffer[row][x] = char
 			x += 1
+
 	def setColor(self, color, row, col, len=1):
 		self.linesurfs[row][1] = True
 		for i in range(col, col+len):

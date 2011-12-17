@@ -1,4 +1,5 @@
 from entity import Entity
+from text import TextCharacter
 import sprite
 
 class Player(Entity):
@@ -8,6 +9,8 @@ class Player(Entity):
 		self.setSprite('retard_idle')
 		#self.constaccel_y = 600.0
 		self.accel_y = 0.0
+		self.character = TextCharacter()
+		self.character.setChar('@')
 
 		self.midjump = False
 	def left(self, key, state):
@@ -44,3 +47,7 @@ class Player(Entity):
 		else:
 			self.accel(0, -800)
 			self.impulse(0, -200)
+
+	def draw(self, frameDT, surface, x, y):
+		if self.visible:
+			self.character.draw(surface, frameDT, x, y)

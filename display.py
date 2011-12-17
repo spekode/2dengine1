@@ -5,7 +5,7 @@ class Display(object):
 		#self.surface = pygame.display.set_mode((640, 480), pygame.FULLSCREEN)
 		#self.surface = pygame.display.set_mode((640, 480), pygame.RLEACCEL)
 		self.surface = pygame.display.set_mode((640, 480))
-		self.surface.set_colorkey((0xDD, 0xEE, 0xFF))
+		self.surface.set_colorkey((0xDD, 0xEE, 0xFF), pygame.RLEACCEL)
 	def clear(self):
 		self.surface.fill((0,0,0))
 	def update(self):
