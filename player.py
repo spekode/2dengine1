@@ -8,9 +8,10 @@ class Player(Entity):
 		self.setSpriteList(sprite.spriteLoad('sprites/retard.png'))
 		self.setSprite('retard_idle')
 		#self.constaccel_y = 600.0
-		self.vel_x_max = 100.0
-		self.vel_y_max = 100.0
+		#self.vel_x_max = 100.0
+		#self.vel_y_max = 100.0
 		self.accel_y = 0.0
+		#self.resistance_x = 1.0
 		self.character = TextCharacter()
 		self.character.setChar('@')
 
@@ -54,5 +55,5 @@ class Player(Entity):
 		if self.visible:
 			cx = 10 * int(x)
 			cy = 16 * int(y)
-			print x, y, cx, cy
+
 			self.character.draw(surface, frameDT, cx, cy)
