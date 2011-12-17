@@ -13,7 +13,7 @@ class Camera(Entity):
 		self.surface = display.getSurface()
 		self.scene = scene
 		self.console = console
-		
+
 	def respectBoundry(self):
 		if self.pos_x < 0: self.pos_x = 0
 		elif self.pos_x > 4096 - CAMERA_WIDTH: self.pos_x = 4096 - CAMERA_WIDTH

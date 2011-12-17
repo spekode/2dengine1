@@ -6,7 +6,7 @@ def spriteLoad(filename):
 	spriteinfo = {}
 	sprites = {}
 	surface = pygame.image.load(filename).convert()
-	surface.set_colorkey(0xDDEEFF, pygame.RLEACCEL)
+	surface.set_colorkey((0xDD, 0xEE, 0xFF), pygame.RLEACCEL)
 	for line in open(filename + ".sprite"):
 		temp = line.strip().split()
 		# dogman_jump 4 0 0 10 20 0.5

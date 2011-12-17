@@ -16,11 +16,11 @@ class TextConsole(object):
 
 	def renderRow(self, rowindex):
 		print "rendering row", rowindex
-		linesurf = pygame.Surface((640, 16), pygame.RLEACCEL)
-		linesurf.set_colorkey(0xDDEEFF, pygame.RLEACCEL)
+		linesurf = pygame.Surface((640, 16))
+		linesurf.set_colorkey((0xDD, 0xEE, 0xFF), pygame.RLEACCEL)
 		for i, col in enumerate(self.buffer[rowindex]):
 			colsurf = self.font.render(col, 0, self.bufferColors[rowindex][i], (0xDD, 0xEE, 0xFF)).convert_alpha()
-			colsurf.set_colorkey(0xDDEEFF, pygame.RLEACCEL)
+			colsurf.set_colorkey((0xDD, 0xEE, 0xFF), pygame.RLEACCEL)
 			linesurf.blit(colsurf, ((i*10), 0))
 		return linesurf
 
