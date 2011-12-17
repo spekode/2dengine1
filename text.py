@@ -19,7 +19,7 @@ class TextConsole(object):
 		linesurf = pygame.Surface((640, 16), pygame.RLEACCEL)
 		linesurf.set_colorkey(0xDDEEFF, pygame.RLEACCEL)
 		for i, col in enumerate(self.buffer[rowindex]):
-			colsurf = self.font.render(col, 0, self.bufferColors[rowindex][i], (0xDD,0xEE,0xFF))
+			colsurf = self.font.render(col, 0, self.bufferColors[rowindex][i], (0xDD, 0xEE, 0xFF)).convert_alpha()
 			colsurf.set_colorkey(0xDDEEFF, pygame.RLEACCEL)
 			linesurf.blit(colsurf, ((i*10), 0))
 		return linesurf
