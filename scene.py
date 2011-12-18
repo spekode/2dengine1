@@ -2,6 +2,7 @@ import sprite
 import os
 
 scene = None
+filext = open('ext_opt', 'r').readline()
 
 def getScene():
 	global scene 
@@ -47,7 +48,7 @@ class Scene(object):
 	def loadTiles(self, tilelist):
 		sprites = []
 		for tile in tilelist:
-			tmp = sprite.spriteLoad('./tiles/' + tile + '.png')
+			tmp = sprite.spriteLoad('./tiles/' + tile +'.'+filext)
 			sprites.append(Tile(tile, tmp))
 		return sprites
 
