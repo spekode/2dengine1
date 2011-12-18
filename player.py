@@ -74,6 +74,8 @@ class Player(TextEntity):
 	def _fire(self, x, y):
 		if self.shootingTime.elapsed() < self.rateOfFire:
 			return
+		if not x and not y: return
+		
 		getScene().add(Bullet(self, 3, x, y), 3)
 		self.shootingTime.restart()
 
