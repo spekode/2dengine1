@@ -1,3 +1,7 @@
 *.pyc
 .*swp
 ext_opt
+*~
+*.bmp
+.DS_Store
+*.bmp.sprite
