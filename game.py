@@ -8,7 +8,7 @@ from common import *
 
 MAXIMUM_COLLISION_RANGE = 10
 
-def collisionTimeCheck(ent1, ent2, vel1, vel2, stime, etime, step):
+def collisionTimeCheck(against, ent1, ent2, vel1, vel2, stime, etime, step):
 	entA = Vec2(0,0) + ent1
 	entB = Vec2(0,0) + ent2
 	while stime < etime:
@@ -18,7 +18,7 @@ def collisionTimeCheck(ent1, ent2, vel1, vel2, stime, etime, step):
 		if distance < 0.75:
 			#print "COLLISION BETWEEN FRAMES ", stime, ent1, ent2, distance
 			#while True: pass
-			return (ent2, (ent1.x, ent1.y))
+			return (against, (ent1.x, ent1.y))
 		stime += step
 	return None
 
@@ -105,7 +105,7 @@ class Game(object):
 				ev_vel = Vec2(ent.vel_x, ent.vel_y)
 				old_cev = Vec2(cent.oldpos_x, cent.oldpos_y)
 				cev_vel = Vec2(cent.vel_x, cent.vel_y)
-				cevent = collisionTimeCheck(old_ev, old_cev, ev_vel, cev_vel, 0.001, frameDTfract, 0.002)
+				cevent = collisionTimeCheck(cent, old_ev, old_cev, ev_vel, cev_vel, 0.001, frameDTfract, 0.002)
 				if cevent:
 					collisionList.append(cevent)
 
@@ -122,12 +122,15 @@ class Game(object):
 				collisionList.append((None, (int(ex), int(ey))))
 
 			# Check for collisions with other ents
-			for clayer in self.scene.layers:
+			for clayer in self.scene.layers[self.scene.layers.index(layer):]:
 				collisionList += self.collisionEntityCheck(ent, clayer)
 
 			# Tell the ent about them
 			if len(collisionList):
 				ent.collide(collisionList)
+				# Also tell the ents they collide with
+				for collision in collisionList:
+					if collision[0]: collision[0].collide([(ent, collision[1])])
 
 	def run(self, frameDT):
 		# Run a frame

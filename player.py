@@ -21,8 +21,8 @@ class Bullet(TextEntity):
 	def death(self, attacker=None, deathtype=None):
 		self.health = -1
 
-	def collide(self, partners):
-		for partner in partners:
+	def collideHandler(self):
+		for partner in self.touching:
 			if partner[0]:
 				if partner[0] == self.owner:
 					pass # we don't hurt ourselves :D
@@ -44,7 +44,11 @@ class Bullet(TextEntity):
 				self.vel_y = 0
 				self.health = 0
 
+		self.touching = []
+
 	def think(self, frameDT):
+		if len(self.touching): self.collideHandler()
+
 		if self.liveTimer.elapsed() > 1000:
 			#print "timed out!"
 			self.health = 0
@@ -68,15 +72,16 @@ class Fuzzie(TextEntity):
 		self.health = -1
 
 	def think(self, frameDT):
+		if len(self.touching): self.collideHandler()
 		if not self.health: self.death()
 
-	def collide(self, partners):
-	#	print partners
-		for partner in partners:
+	def collideHandler(self):
+		for partner in self.touching:
 			if partner[0]:
 				if partner[0].getChar() == '+':
-					print "Hit by bullet!"
+					#print "Hit by bullet!"
 					self.health = 0
+		self.touching = []
 #			else:
 #				self.pos_x = self.oldpos_x
 #				self.pos_y = self.oldpos_y
@@ -194,6 +199,8 @@ class Player(TextEntity):
 			self.fire_x += self.fire_vel
 
 	def think(self, frameDT):
+		if len(self.touching): self.collideHandler()
+
 		if self.shooting > 0:
 			self._fire(self.fire_x, self.fire_y)
 		if self.moving:

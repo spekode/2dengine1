@@ -51,8 +51,8 @@ class Entity(object):
 	def impulse(self, x=0, y=0):
 		self.vel_x += x
 		self.vel_y += y
-	def collide(self, partners=[]):
-		for partner in partners:
+	def collideHandler(self):
+		for partner in self.touching:
 			if partner[0] != None: pass
 				#print "Entity on Entity collision"
 			else:
@@ -66,7 +66,10 @@ class Entity(object):
 				#print ex, ey, wx, wy, self.vel_x, self.vel_y
 				self.pos_x = self.oldpos_x
 				self.pos_y = self.oldpos_y
+		self.touching = []
 
+	def collide(self, partners=[]):
+		self.touching += partners
 	def takeDamage(self, attacker, dmg, dmgtype=None): pass
 	def death(self, attacker=None, deathtype=None): pass
 	def respawn(self): pass
