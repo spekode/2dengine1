@@ -94,9 +94,9 @@ class Entity(object):
 
 	def respectBoundry(self):
 		if self.pos_y < 0: self.pos_y = 0
-		elif self.pos_y > 4096: self.pos_y = 4096
+		elif self.pos_y > 29: self.pos_y = 29
 		if self.pos_x < 0: self.pos_x = 0
-		elif self.pos_x > 4096: self.pos_x = 4096
+		elif self.pos_x > 63: self.pos_x = 63
 
 	def setSpriteList(self, sprites):
 		self.sprites = sprites
