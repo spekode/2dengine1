@@ -86,43 +86,53 @@ class Game(object):
 			if key in kup:
 				self.controlBinds[key](key, False)
 
-	def run(self, frameDT):
-		# Run a frame
+	def collisionEntityCheck(self, ent, layer):
+		global frameDTfract
+		ev = Vec2(ent.pos_x, ent.pos_y)
+		collisionList = []
+		for cent in layer.entities:
+			if cent == ent:
+				continue
 
-		# Check for collisions
-		for ent in self.scene.layers[3].entities:
+			# Straight forward check, are we too close?
+			cev = Vec2(cent.pos_x, cent.pos_y)
+			distance = abs((ev - cev).mag)
+			if distance < 1: collisionList.append((cent, (0,0)))
+			elif distance > MAXIMUM_COLLISION_RANGE: continue
+			else:
+				# We aren't too close /now/, but did we collide between frames?
+				old_ev = Vec2(ent.oldpos_x, ent.oldpos_y)
+				ev_vel = Vec2(ent.vel_x, ent.vel_y)
+				old_cev = Vec2(cent.oldpos_x, cent.oldpos_y)
+				cev_vel = Vec2(cent.vel_x, cent.vel_y)
+				cevent = collisionTimeCheck(old_ev, old_cev, ev_vel, cev_vel, 0.001, frameDTfract, 0.002)
+				if cevent:
+					collisionList.append(cevent)
+
+		return collisionList
+
+	def collisionLayerCheck(self, layer):
+		for ent in layer.entities:
 			if ent.health <= 0: continue # don't collision-check the dead
 			ex, ey = ent.getPos()
-			ev = Vec2(ent.pos_x, ent.pos_y)
 			collisionList = []
+
 			# Check for collisions with the map
 			if self.console.buffer[int(ey)][int(ex)] != ' ':
 				collisionList.append((None, (int(ex), int(ey))))
+
 			# Check for collisions with other ents
-			for cent in self.scene.layers[4].entities:
-				if cent == ent: continue
-				# Straight forward check, are we too close?
-				cev = Vec2(cent.pos_x, cent.pos_y)
-				distance = abs((ev - cev).mag)
-				if distance < 1: collisionList.append((cent, (0,0)))
-				elif distance > MAXIMUM_COLLISION_RANGE: continue
-				else:
-					# We aren't too close /now/, but did we collide between frames?
-					frameDTfract = frameDT/1000
-					old_ev = Vec2(ent.oldpos_x, ent.oldpos_y)
-					ev_vel = Vec2(ent.vel_x, ent.vel_y)
-					old_cev = Vec2(cent.oldpos_x, cent.oldpos_y)
-					cev_vel = Vec2(cent.vel_x, cent.vel_y)
-					dev = Vec2(0.0, 0.0) + old_ev
-					dcev = Vec2(0.0, 0.0) + old_cev
-					steptime = 0.005
-					tstep = 0.005
-					cevent = collisionTimeCheck(dev, dcev, ev_vel, cev_vel, 0.001, frameDTfract, 0.002)
-					if cevent:
-						collisionList.append(cevent)
+			for clayer in self.scene.layers:
+				collisionList += self.collisionEntityCheck(ent, clayer)
+
 			# Tell the ent about them
 			if len(collisionList):
 				ent.collide(collisionList)
+
+	def run(self, frameDT):
+		# Run a frame
+		global frameDTfract
+		frameDTfract = frameDT/1000
 
 		# Check for 'dead' entities and let everyone think
 		for layer in self.scene.layers:
@@ -136,3 +146,7 @@ class Game(object):
 			for ent in deadEnts:		
 				zombie = layer.entities.remove(ent)
 				del zombie
+
+		# Check for collisions
+		for layer in self.scene.layers:
+			self.collisionLayerCheck(layer)

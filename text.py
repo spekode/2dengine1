@@ -9,6 +9,8 @@ class TextCharacter(object):
 		self.font = pygame.font.Font('fonts/mode7.ttf', 16)
 		self.surf = None
 		self.dirty = True
+	def getChar(self):
+		return self.char
 	def setChar(self, char):
 		self.dirty = True
 		self.char = char

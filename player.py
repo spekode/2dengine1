@@ -64,21 +64,24 @@ class Fuzzie(TextEntity):
 		self.liveTimer.start()
 		self.name = 'Fuzzie'
 	
-	def death(self, attacker=None, deathtype=None): pass
+	def death(self, attacker=None, deathtype=None):
+		self.health = -1
 
-	def think(self, frameDT): pass
+	def think(self, frameDT):
+		if not self.health: self.death()
 
 	def collide(self, partners):
+	#	print partners
 		for partner in partners:
 			if partner[0]:
-				if partner[0].char == '+':
+				if partner[0].getChar() == '+':
+					print "Hit by bullet!"
 					self.health = 0
-		
-			else:
-				self.pos_x = self.oldpos_x
-				self.pos_y = self.oldpos_y
-				self.vel_x = 0
-				self.vel_y = 0
+#			else:
+#				self.pos_x = self.oldpos_x
+#				self.pos_y = self.oldpos_y
+#				self.vel_x = 0
+#				self.vel_y = 0
 
 MOVE_LEFT = 1
 MOVE_RIGHT = 2
@@ -108,7 +111,7 @@ class Player(TextEntity):
 
 		self.levelMax = 20
 		self.levelCur = 0 
-		self.levelFuzzieEx = 2 #Chance of a fuzzie spawning during the time (20% chance)
+		self.levelFuzzieEx = 5 #Chance of a fuzzie spawning during the time (20% chance)
 
 		#self.constaccel_y = 20.0
 		#self.vel_x_max = 100.0

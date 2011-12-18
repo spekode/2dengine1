@@ -170,3 +170,5 @@ class TextEntity(Entity):
 			cy = 16 * int(y)
 
 			self.character.draw(surface, frameDT, cx, cy)
+	def getChar(self):
+		return self.character.getChar()
