@@ -25,44 +25,38 @@ class Game(object):
 		'd':keyUnbound
 	}
 
-	def __init__(self):
+	def __init__(self, level='level1'):
+		self.level = level
 		self.console = TextConsole()
 		self.display = Display()
-		self.scene = getScene()
+		self.scene = getScene(self.console)
+		self.scene.player1 = Player()
+		self.scene.player1.character.setColor((100, 255, 0))
 		self.camera = Camera(self.display, self.scene, self.console)
-		
-		self.level = 'terminal'
+		self.scene.add(self.camera, 0)
 
-		player1 = Player()
-		player1.setPos(1, 1)
-		player1.setVisible(True)
 
 		# Default controls
-		self.controlBinds['a'] = player1.left
-		self.controlBinds['d'] = player1.right
-		self.controlBinds['w'] = player1.up
-		self.controlBinds['s'] = player1.down
-		self.controlBinds['up'] = player1.fireUp
-		self.controlBinds['down'] = player1.fireDown
-		self.controlBinds['left'] = player1.fireLeft
-		self.controlBinds['right'] = player1.fireRight
+		self.controlBinds['a'] = self.scene.player1.left
+		self.controlBinds['d'] = self.scene.player1.right
+		self.controlBinds['w'] = self.scene.player1.up
+		self.controlBinds['s'] = self.scene.player1.down
+		self.controlBinds['up'] = self.scene.player1.fireUp
+		self.controlBinds['down'] = self.scene.player1.fireDown
+		self.controlBinds['left'] = self.scene.player1.fireLeft
+		self.controlBinds['right'] = self.scene.player1.fireRight
 		#self.controlBinds['enter'] =
 		#self.controlBinds['pgdn'] = self.camera.scrollDown
 		#self.controlBinds['pgup'] = self.camera.scrollUp
-
-		self.scene.loadLevel(self.level)
-		self.scene.add(self.camera, 0)
-		self.scene.add(player1, 2)
 
 		self.camera.setPos(0, 0)
 		#self.camera.vel_x = 100.0
 		self.camera.resistance_x = 400.0
 		self.camera.resistance_y = 400.0
 		#self.camera.setOwner(player1)
-
-		# Testing, testing..
-		self.console.setChars("@", 21, 11)
-		self.console.setColor((255,0,0), 21, 11)
+	
+	def loadLevel(self, level):
+		self.scene.loadLevel(self.level)
 
 	def update(self, kdown, kup, other):
 		for key in self.controlBinds:
@@ -73,6 +67,8 @@ class Game(object):
 		
 	def run(self, frameDT):
 		# Run a frame
+
+		# Check for 'dead' entities and let everyone think
 		for layer in self.scene.layers:
 			deadEnts = []
 			for ent in layer.entities:
@@ -83,3 +79,13 @@ class Game(object):
 					ent.move(frameDT)
 			for ent in deadEnts:		
 				layer.entities.remove(ent)
+
+		# Check for collisions
+		for ent in self.scene.layers[3].entities:
+			ex, ey = ent.getPos()
+			# Check for collisions with the map
+			if self.console.buffer[int(ey)][int(ex)] != ' ':
+				ent.collide([(None, (int(ex), int(ey)))])
+			else:
+				ent.oldpos_x = ex
+				ent.oldpos_y = ey

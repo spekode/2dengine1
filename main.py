@@ -23,7 +23,7 @@ def engineInit():
 	levelInit('terminal')
 
 def levelInit(game_level):
-	pass
+	game.loadLevel(game_level)
 
 def gameLoop():
 	global frameDT

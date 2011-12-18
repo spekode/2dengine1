@@ -16,6 +16,8 @@ class Entity(object):
 
 		self.accel_x = 0.0
 		self.accel_y = 0.0
+		self.oldpos_x = 0.0
+		self.oldpos_y = 0.0
 		self.pos_x = 0.0
 		self.pos_y = 0.0
 		self.vel_x = 0.0
@@ -49,7 +51,22 @@ class Entity(object):
 	def impulse(self, x=0, y=0):
 		self.vel_x += x
 		self.vel_y += y
-	def collide(self, partners=[]): pass
+	def collide(self, partners=[]):
+		for partner in partners:
+			if partner[0] != None:
+				print "Entity on Entity collision"
+			else:
+				print "Entity on Wall collision"
+				ex, ey = self.getPos()
+				wx, wy = partner[1]
+				#ex = int(ex)
+				#ey = int(ey)
+				#wx = int(wx)
+				#wy = int(wy)
+				print ex, ey, wx, wy, self.vel_x, self.vel_y
+				self.pos_x = self.oldpos_x
+				self.pos_y = self.oldpos_y
+
 	def takeDamage(self, attacker, dmg, dmgtype=None): pass
 	def death(self, attacker=None, deathtype=None): pass
 	def respawn(self): pass
@@ -60,6 +77,7 @@ class Entity(object):
 
 	def move(self, frameDT):
 		frameDTfract = frameDT/1000
+
 		# Apply acceleration
 		self.vel_x += (self.accel_x * frameDTfract) + (self.constaccel_x * frameDTfract)
 		self.vel_y += (self.accel_y * frameDTfract) + (self.constaccel_y * frameDTfract)
@@ -85,7 +103,9 @@ class Entity(object):
 			elif self.vel_x < -self.vel_x_max: self.vel_x = -self.vel_x_max
 		if self.vel_y_max:
 			if self.vel_y > self.vel_y_max: self.vel_y = self.vel_y_max
-			elif self.vel_y < -self.vel_y_max: self.vel_y = -self.vel_y_max		# Update position
+			elif self.vel_y < -self.vel_y_max: self.vel_y = -self.vel_y_max	
+		
+		# Update position
 		self.pos_x += self.vel_x * frameDTfract
 		self.pos_y += self.vel_y * frameDTfract
 

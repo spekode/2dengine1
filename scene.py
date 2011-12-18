@@ -4,10 +4,10 @@ import os
 scene = None
 filext = open('ext_opt', 'r').readline().strip()
 
-def getScene():
+def getScene(console=None):
 	global scene 
 	if not scene:
-		scene = Scene()
+		scene = Scene(console)
 	return scene
 
 class Tile(object):
@@ -40,11 +40,14 @@ class Layer(object):
 		if y: self.sfactor_y = y
 
 class Scene(object):
-	def __init__(self):
+	def __init__(self, console=None):
 		self.layerCount = 8
 		self.layers = [Layer()]
 		self.tiles = []
-
+		self.textmap = []
+		self.console = console
+		self.player1 = None
+				
 	def loadTiles(self, tilelist):
 		sprites = []
 		for tile in tilelist:
@@ -72,6 +75,26 @@ class Scene(object):
 
 		return layer
 
+	def loadTextMap(self, level):
+		px = py = 1
+		print "loadTextMap"
+		#try:
+		for num, line in enumerate(open("./levels/" + level + "/map.txt")):
+			line = line.strip()
+			ppos = line.find('P')
+			if ppos != -1:
+				py = num
+				px = ppos
+				tmp = list(line)
+				tmp[ppos] = ' '
+				line = "".join(tmp)
+			self.console.setChars(line, num, 0)
+		#except e: print e
+
+		self.player1.setPos(px, py)
+		self.player1.setVisible(True)
+		self.add(self.player1, 3)
+
 	def loadLevel(self, level='intro'):
 		# Get the tileset
 		tilenames = []
@@ -86,6 +109,9 @@ class Scene(object):
 		for i in range(0, self.layerCount):
 			self.layers.append(self.loadLayer(level, i))
 			print "layer", i, ":", self.layers[i]
+
+		# Get the text map
+		self.loadTextMap(level)
 
 	def add(self, ent, layer=0):
 		self.layers[layer].entities.append(ent)

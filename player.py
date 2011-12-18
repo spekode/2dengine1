@@ -17,6 +17,16 @@ class Bullet(TextEntity):
 	def death(self, attacker=None, deathtype=None):
 		self.health = -1
 
+	def collide(self, partners):
+		for partner in partners:
+			if not partner[0]: # map
+				print "hit a wall"
+				self.pos_x = self.oldpos_x
+				self.pos_y = self.oldpos_y
+				self.vel_x = 0
+				self.vel_y = 0
+				self.health = 0
+
 	def think(self, frameDT):
 		if self.liveTimer.elapsed() > 1000:
 			self.health = 0
@@ -46,7 +56,7 @@ class Player(TextEntity):
 		self.shootingTime = Timer().start()
 		self.fire_x = 0
 		self.fire_y = 0
-		self.fire_vel = 100
+		self.fire_vel = 50
 
 		self.levelMax = 20
 		self.levelCur = 0 
