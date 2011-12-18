@@ -107,6 +107,5 @@ class Player(TextEntity):
 			self.fire_x += self.fire_vel
 
 	def think(self, frameDT):
-		print self.shooting
 		if self.shooting > 0:
 			self._fire(self.fire_x, self.fire_y)
