@@ -103,6 +103,8 @@ class Player(TextEntity):
 
 		self.vel_y_max = 10
 		self.vel_x_max = 10
+		self.resistance_x = 35.0
+		self.resistance_y = 35.0
 
 		self.levelMax = 20
 		self.levelCur = 0 
