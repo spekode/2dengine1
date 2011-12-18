@@ -22,3 +22,10 @@ Maybe
 Future stuff
 -------------
 [ ] Uniform file I/O for resources
+
+Other stuff that comes to mind
+------------------------------
+- Entity handling of position is... screwy. Since we're emulating text-cell
+based gameplay (ie. 64x30) it's convenient to have pos_x/pos_y be the cell
+coordinates. But since I switched to the cell-based gameplay in a hurry I
+did a cruddy job handling the change. Well.. you-me get it.
