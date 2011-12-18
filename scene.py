@@ -2,7 +2,7 @@ import sprite
 import os
 
 scene = None
-filext = open('ext_opt', 'r').readline()
+filext = open('ext_opt', 'r').readline().strip()
 
 def getScene():
 	global scene 
