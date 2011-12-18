@@ -55,7 +55,7 @@ class Game(object):
 		self.scene.add(player1, 2)
 
 		self.camera.setPos(0, 0)
-		self.camera.vel_x = 100.0
+		#self.camera.vel_x = 100.0
 		self.camera.resistance_x = 400.0
 		self.camera.resistance_y = 400.0
 		#self.camera.setOwner(player1)
