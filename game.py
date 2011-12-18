@@ -1,7 +1,7 @@
 from display import Display
 from camera import Camera
 from player import Player
-from scene import Scene
+from scene import getScene
 import sys
 from text import TextConsole
 
@@ -28,7 +28,7 @@ class Game(object):
 	def __init__(self):
 		self.console = TextConsole()
 		self.display = Display()
-		self.scene = Scene()
+		self.scene = getScene()
 		self.camera = Camera(self.display, self.scene, self.console)
 		
 		self.level = 'terminal'
@@ -42,6 +42,10 @@ class Game(object):
 		self.controlBinds['d'] = player1.right
 		self.controlBinds['w'] = player1.up
 		self.controlBinds['s'] = player1.down
+		self.controlBinds['up'] = player1.fireUp
+		self.controlBinds['down'] = player1.fireDown
+		self.controlBinds['left'] = player1.fireLeft
+		self.controlBinds['right'] = player1.fireRight
 		#self.controlBinds['enter'] =
 		#self.controlBinds['pgdn'] = self.camera.scrollDown
 		#self.controlBinds['pgup'] = self.camera.scrollUp
@@ -70,5 +74,12 @@ class Game(object):
 	def run(self, frameDT):
 		# Run a frame
 		for layer in self.scene.layers:
+			deadEnts = []
 			for ent in layer.entities:
-				ent.move(frameDT)
+				if ent.health == -1:
+					deadEnts.append(ent)
+				else:
+					ent.think(frameDT)
+					ent.move(frameDT)
+			for ent in deadEnts:		
+				layer.entities.remove(ent)

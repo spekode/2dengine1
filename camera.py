@@ -2,9 +2,9 @@ from entity import Entity
 
 CAMERA_WIDTH = 640
 CAMERA_HEIGHT = 480
-CHASECAM_MARGIN = 225
-CHASECAM_VERT_MARGIN = 75
-CHASECAM_IMPULSE = 25
+CHASECAM_MARGIN = 100
+CHASECAM_VERT_MARGIN = 100
+CHASECAM_IMPULSE = 7
 
 class Camera(Entity):
 	def __init__(self, display, scene=None, console=None, x=0, y=0, owner=None):
@@ -24,14 +24,17 @@ class Camera(Entity):
 		Entity.move(self, frameDT)
 		if not self.owner: return
 
-		if self.owner.pos_x + CHASECAM_MARGIN > self.pos_x + CAMERA_WIDTH:
+		owner_x = self.owner.pos_x * 10
+		owner_y = self.owner.pos_y * 16
+		#print owner_x, owner_y, self.pos_x, self.pos_y
+		if owner_x + CHASECAM_MARGIN > self.pos_x + CAMERA_WIDTH:
 			self.impulse(CHASECAM_IMPULSE)
-		elif self.owner.pos_x - CHASECAM_MARGIN < self.pos_x:
+		elif owner_x - CHASECAM_MARGIN < self.pos_x:
 			self.impulse(-CHASECAM_IMPULSE)
 
-		if self.owner.pos_y + CHASECAM_VERT_MARGIN > self.pos_y + CAMERA_HEIGHT:
+		if owner_y + CHASECAM_VERT_MARGIN > self.pos_y + CAMERA_HEIGHT:
 			self.impulse(0, CHASECAM_IMPULSE)
-		elif self.owner.pos_y - CHASECAM_VERT_MARGIN < self.pos_y:
+		elif owner_y - CHASECAM_VERT_MARGIN < self.pos_y:
 			self.impulse(0, -CHASECAM_IMPULSE)
 
 	def drawLayer(self, layer, frameDT):

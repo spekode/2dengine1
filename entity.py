@@ -1,3 +1,5 @@
+from text import TextCharacter
+
 def LinearChange(rate, currentTime, currentDelta):
 	return rate * (currentDelta/1000)
 
@@ -27,13 +29,13 @@ class Entity(object):
 		self.colRect = None
 		self.colCircle = None
 
-		self.health = 0
+		self.health = 100
 		self.visible = False
 
 		self.touching = []
 
 	# Actions (most likely overriden by a subclass)
-	def think(self): pass
+	def think(self, frameDT): pass
 
 	def accel(self, x, y, tlen=None, tfunc=LinearChange):
 		self.accel_x += x
@@ -49,7 +51,7 @@ class Entity(object):
 		self.vel_y += y
 	def collide(self, partners=[]): pass
 	def takeDamage(self, attacker, dmg, dmgtype=None): pass
-	def death(self, attacker, deathtype=None): pass
+	def death(self, attacker=None, deathtype=None): pass
 	def respawn(self): pass
 
 	def draw(self, frameDT, surface, x, y):
@@ -128,3 +130,16 @@ class Entity(object):
 		self.visible = visible
 	def getVisible(self):
 		return self.visible
+
+class TextEntity(Entity):
+	def __init__(self, owner=None, layer=None, char='@'):
+		Entity.__init__(self, owner, layer)
+		self.character = TextCharacter()
+		self.character.setChar(char)
+
+	def draw(self, frameDT, surface, x, y):
+		if self.visible:
+			cx = 10 * int(x)
+			cy = 16 * int(y)
+
+			self.character.draw(surface, frameDT, cx, cy)

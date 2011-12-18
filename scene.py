@@ -1,6 +1,14 @@
 import sprite
 import os
 
+scene = None
+
+def getScene():
+	global scene 
+	if not scene:
+		scene = Scene()
+	return scene
+
 class Tile(object):
 	def __init__(self, sprite=None, sprites=None):
 		self.width = 64
