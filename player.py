@@ -2,6 +2,7 @@ from entity import TextEntity
 import sprite
 from timer import Timer
 from scene import getScene
+import random
 
 class Bullet(TextEntity):
 	def __init__(self, owner, layer, vel_x, vel_y):
@@ -22,7 +23,21 @@ class Bullet(TextEntity):
 
 		if not self.health:
 			self.death()
-							
+
+class Fuzzie(TextEntity):
+	def __init__(self, layer, vel_x, vel_y):
+		TextEntity.__init__(self, self, layer, char = '*')
+		#self.setPos(self.pos_x, s.pos_y)
+		self.vel_x = vel_x
+		self.vel_y = vel_y
+		self.visible = True
+		self.liveTimer = Timer()
+		self.liveTimer.start()
+	
+	def death(self, attacker=None, deathtype=None): pass
+
+	def think(self, frameDT): pass
+
 class Player(TextEntity):
 	def __init__(self):
 		TextEntity.__init__(self, self, 0)
@@ -32,6 +47,10 @@ class Player(TextEntity):
 		self.fire_x = 0
 		self.fire_y = 0
 		self.fire_vel = 100
+
+		self.levelMax = 20
+		self.levelCur = 0 
+		self.levelFuzzieEx = 2 #Chance of a fuzzie spawning during the time (20% chance)
 
 		#self.constaccel_y = 600.0
 		#self.vel_x_max = 100.0
@@ -111,3 +130,7 @@ class Player(TextEntity):
 	def think(self, frameDT):
 		if self.shooting > 0:
 			self._fire(self.fire_x, self.fire_y)
+
+		if random.randint(1,self.levelFuzzieEx*30) == 1 and self.levelCur <= self.levelMax: #CHANCE*CURRENT_FPS should do the trick...
+			getScene().add(Fuzzie(4, 50, 2), 4)
+			self.levelCur += 1
