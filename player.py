@@ -85,13 +85,13 @@ class Player(TextEntity):
 		self.fire_vel = 100
 		self.name = 'Player'
 
-		self.moveRate = 100
+		self.moveRate = 50
 		self.moving = False
 		self.moveTime = Timer().start()
 		self.move_vel = 7
 
-		self.vel_y_max = 20
-		self.vel_x_max = 20
+		self.vel_y_max = 10
+		self.vel_x_max = 10
 
 		self.levelMax = 20
 		self.levelCur = 0 

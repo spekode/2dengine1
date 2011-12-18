@@ -24,12 +24,12 @@ class Entity(object):
 		self.vel_y = 0.0
 		self.constaccel_x = 0.0
 		self.constaccel_y = 0.0
-		self.resistance_x = 20.0
-		self.resistance_y = 20.0
+		self.resistance_x = 27.0
+		self.resistance_y = 27.0
 		self.rotation = 0.0
 		
 		self.colRect = None
-		self.colCircle = None
+		self.colCircle = ((0.0, 0.0), 0.5)
 
 		self.health = 100
 		self.visible = False
