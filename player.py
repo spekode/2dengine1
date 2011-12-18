@@ -4,11 +4,11 @@ from timer import Timer
 from scene import getScene
 
 class Bullet(TextEntity):
-	def __init__(self, owner, layer, x, y):
+	def __init__(self, owner, layer, vel_x, vel_y):
 		TextEntity.__init__(self, owner, layer, char = '+')
 		self.setPos(owner.pos_x, owner.pos_y)
-		self.vel_x = x
-		self.vel_y = y
+		self.vel_x = vel_x
+		self.vel_y = vel_y
 		self.visible = True
 		self.liveTimer = Timer()
 		self.liveTimer.start()
@@ -75,7 +75,7 @@ class Player(TextEntity):
 		if self.shootingTime.elapsed() < self.rateOfFire:
 			return
 		if not x and not y: return
-		
+
 		getScene().add(Bullet(self, 3, x, y), 3)
 		self.shootingTime.restart()
 
