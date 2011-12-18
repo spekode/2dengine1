@@ -5,6 +5,9 @@ from scene import getScene
 import sys
 from text import TextConsole
 
+def collisionCheckMapEnt(ent):
+	pass
+	
 def keyUnbound(key, state):
 	print "Unbound key:", key, "State:", state
 
@@ -57,6 +60,7 @@ class Game(object):
 	
 	def loadLevel(self, level):
 		self.scene.loadLevel(self.level)
+		self.console.setChars("\x7f", 28, 10)
 
 	def update(self, kdown, kup, other):
 		for key in self.controlBinds:
@@ -86,6 +90,3 @@ class Game(object):
 			# Check for collisions with the map
 			if self.console.buffer[int(ey)][int(ex)] != ' ':
 				ent.collide([(None, (int(ex), int(ey)))])
-			else:
-				ent.oldpos_x = ex
-				ent.oldpos_y = ey

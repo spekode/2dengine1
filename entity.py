@@ -24,8 +24,8 @@ class Entity(object):
 		self.vel_y = 0.0
 		self.constaccel_x = 0.0
 		self.constaccel_y = 0.0
-		self.resistance_x = 10.0
-		self.resistance_y = 10.0
+		self.resistance_x = 20.0
+		self.resistance_y = 20.0
 		self.rotation = 0.0
 		
 		self.colRect = None
@@ -105,6 +105,9 @@ class Entity(object):
 			if self.vel_y > self.vel_y_max: self.vel_y = self.vel_y_max
 			elif self.vel_y < -self.vel_y_max: self.vel_y = -self.vel_y_max	
 		
+		# Save position
+		self.oldpos_x = self.pos_x
+		self.oldpos_y = self.pos_y
 		# Update position
 		self.pos_x += self.vel_x * frameDTfract
 		self.pos_y += self.vel_y * frameDTfract
@@ -133,6 +136,10 @@ class Entity(object):
 		return True
 	def getPos(self):
 		return (self.pos_x, self.pos_y)
+	def setOldPos(self, oldx, oldy):
+		self.oldpos_x = oldx
+		self.oldpos_y = oldy
+		return True
 	def setOwner(self, owner=None):
 		self.owner = owner
 	def getOwner(self):
