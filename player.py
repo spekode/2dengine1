@@ -14,6 +14,7 @@ class Bullet(TextEntity):
 		self.visible = True
 		self.liveTimer = Timer()
 		self.liveTimer.start()
+		self.name = 'Bullet'
 	
 	def death(self, attacker=None, deathtype=None):
 		self.health = -1
@@ -25,7 +26,7 @@ class Bullet(TextEntity):
 					pass # we don't hurt ourselves :D
 			else:
 				# hit the map
-				print "hit a wall"
+				#print "hit a wall"
 				self.pos_x = self.oldpos_x
 				self.pos_y = self.oldpos_y
 				self.vel_x = 0
@@ -34,26 +35,39 @@ class Bullet(TextEntity):
 
 	def think(self, frameDT):
 		if self.liveTimer.elapsed() > 1000:
-			print "timed out!"
+			#print "timed out!"
 			self.health = 0
 
 		if not self.health:
-			print "died!"
+			#print "died!"
 			self.death()
 
 class Fuzzie(TextEntity):
 	def __init__(self, layer, vel_x, vel_y):
-		TextEntity.__init__(self, self, layer, char = '*')
+		TextEntity.__init__(self, None, layer, char = '*')
 		#self.setPos(self.pos_x, s.pos_y)
 		self.vel_x = vel_x
 		self.vel_y = vel_y
 		self.visible = True
 		self.liveTimer = Timer()
 		self.liveTimer.start()
+		self.name = 'Fuzzie'
 	
 	def death(self, attacker=None, deathtype=None): pass
 
 	def think(self, frameDT): pass
+
+	def collide(self, partners):
+		for partner in partners:
+			if partner[0]:
+				if partner[0].char == '+':
+					self.health = 0
+		
+			else:
+				self.pos_x = self.oldpos_x
+				self.pos_y = self.oldpos_y
+				self.vel_x = 0
+				self.vel_y = 0
 
 MOVE_LEFT = 1
 MOVE_RIGHT = 2
@@ -69,6 +83,7 @@ class Player(TextEntity):
 		self.fire_x = 0
 		self.fire_y = 0
 		self.fire_vel = 100
+		self.name = 'Player'
 
 		self.moveRate = 100
 		self.moving = False
@@ -169,5 +184,5 @@ class Player(TextEntity):
 			self._move()
 
 		if random.randint(1,self.levelFuzzieEx*30) == 1 and self.levelCur <= self.levelMax: #CHANCE*CURRENT_FPS should do the trick...
-			getScene().add(Fuzzie(4, 50, 2), 4)
+			getScene().add(Fuzzie(10, 30, 30), 4)
 			self.levelCur += 1

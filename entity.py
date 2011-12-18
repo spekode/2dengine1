@@ -53,17 +53,17 @@ class Entity(object):
 		self.vel_y += y
 	def collide(self, partners=[]):
 		for partner in partners:
-			if partner[0] != None:
-				print "Entity on Entity collision"
+			if partner[0] != None: pass
+				#print "Entity on Entity collision"
 			else:
-				print "Entity on Wall collision"
+				#print "Entity on Wall collision"
 				ex, ey = self.getPos()
 				wx, wy = partner[1]
 				#ex = int(ex)
 				#ey = int(ey)
 				#wx = int(wx)
 				#wy = int(wy)
-				print ex, ey, wx, wy, self.vel_x, self.vel_y
+				#print ex, ey, wx, wy, self.vel_x, self.vel_y
 				self.pos_x = self.oldpos_x
 				self.pos_y = self.oldpos_y
 
