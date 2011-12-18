@@ -9,6 +9,8 @@ class Bullet(TextEntity):
 		TextEntity.__init__(self, owner, layer, char = '+')
 		self.setPos(owner.pos_x, owner.pos_y)
 		self.setOldPos(owner.pos_x, owner.pos_y)
+		self.resistance_x = 0
+		self.resistance_y = 0
 		self.vel_x = vel_x
 		self.vel_y = vel_y
 		self.visible = True
@@ -24,6 +26,15 @@ class Bullet(TextEntity):
 			if partner[0]:
 				if partner[0] == self.owner:
 					pass # we don't hurt ourselves :D
+				else:
+					#print "Bullet collided with", partner[0]
+					#self.pos_x = partner[1][0]
+					#self.pos_y = partner[1][1]
+					self.pos_x = self.oldpos_x
+					self.pos_y = self.oldpos_y
+					self.vel_x = 0
+					self.vel_y = 0
+					self.health = 0
 			else:
 				# hit the map
 				#print "hit a wall"
@@ -82,7 +93,7 @@ class Player(TextEntity):
 		self.shootingTime = Timer().start()
 		self.fire_x = 0
 		self.fire_y = 0
-		self.fire_vel = 100
+		self.fire_vel = 50
 		self.name = 'Player'
 
 		self.moveRate = 50
