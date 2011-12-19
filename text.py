@@ -35,7 +35,6 @@ class TextConsole(object):
 		self.textsurf = None
 
 	def renderRow(self, rowindex):
-		print "rendering row", rowindex
 		linesurf = pygame.Surface((640, 16))
 		linesurf.set_colorkey((0xDD, 0xEE, 0xFF), pygame.RLEACCEL)
 		for i, col in enumerate(self.buffer[rowindex]):
