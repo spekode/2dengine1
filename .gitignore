@@ -5,3 +5,6 @@ ext_opt
 *.bmp
 .DS_Store
 *.bmp.sprite
+build/
+dist/
+pygame/
