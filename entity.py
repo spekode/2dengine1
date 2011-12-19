@@ -42,11 +42,6 @@ class Entity(object):
 	def accel(self, x, y, tlen=None, tfunc=LinearChange):
 		self.accel_x += x
 		self.accel_y += y
-	def rotateLeft(self, rads, tlen=None, tfunc=LinearChange): pass
-	def rotateRight(self, rads, tlen=None, tfunc=LinearChange): pass
-	def attack1(self): pass
-	def attack2(self): pass
-	def block(self): pass
 
 	def impulse(self, x=0, y=0):
 		self.vel_x += x
@@ -70,9 +65,8 @@ class Entity(object):
 
 	def collide(self, partners=[]):
 		self.touching += partners
-	def takeDamage(self, attacker, dmg, dmgtype=None): pass
+
 	def death(self, attacker=None, deathtype=None): pass
-	def respawn(self): pass
 
 	def draw(self, frameDT, surface, x, y):
 		if self.visible and self.sprite:
