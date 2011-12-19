@@ -1,8 +1,5 @@
 from text import TextCharacter
 
-def LinearChange(rate, currentTime, currentDelta):
-	return rate * (currentDelta/1000)
-
 class Entity(object):
 	def __init__(self, owner=None, layer=None):
 		self.owner = owner # If this belongs to a player, player goes here
@@ -35,7 +32,7 @@ class Entity(object):
 	# Actions (most likely overriden by a subclass)
 	def think(self, frameDT): pass
 
-	def accel(self, x, y, tlen=None, tfunc=LinearChange):
+	def accel(self, x, y):
 		self.accel_x += x
 		self.accel_y += y
 
